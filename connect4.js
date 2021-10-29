@@ -27,8 +27,27 @@ class Model {
         let moveArr = id.split("-");
         let row = Number(moveArr[0]);
         let square = Number(moveArr[1]);
-        let winCounter = 0; 
+        let winCounter = 1;
         if(row < 4 && this.boardObj[row][square] === this.boardObj[row + 1][square] && this.boardObj[row][square] === this.boardObj[row + 2][square] && this.boardObj[row][square] === this.boardObj[row + 3][square]){
+            return true;
+        }
+        while(winCounter !== 4){
+            if(this.boardObj[row][square + winCounter] === this.currentPlayer){
+                winCounter++;
+            }
+            else {
+                break;
+            }
+        }
+        while(winCounter !== 4){
+            if(this.boardObj[row][square - winCounter] === this.currentPlayer){
+                winCounter++;
+            }
+            else {
+                break;
+            }
+        }
+        if(winCounter === 4) {
             return true;
         }
         return false;
