@@ -39,6 +39,8 @@ class Model {
                 break;
             }
         }
+        let big = winCounter;
+        winCounter = 1;
         while(winCounter !== 4){
             if(this.boardObj[row][square - winCounter] === this.currentPlayer){
                 winCounter++;
@@ -47,7 +49,8 @@ class Model {
                 break;
             }
         }
-        if(winCounter === 4) {
+        big += winCounter
+        if(big >= 5) {
             return true;
         }
         else {
@@ -72,6 +75,8 @@ class Model {
                 break;
             }
         }
+        let bigWin = winCounter;
+        winCounter = 1;
         while(winCounter !== 4) {
             if(this.boardObj[row - winCounter] === undefined) {
                 break;
@@ -83,11 +88,13 @@ class Model {
                 break;
             }
         }
-        if(winCounter === 4) {
+        bigWin += winCounter
+        if(bigWin >= 5) {
             return true;
         }
         else {
             winCounter = 1;
+            bigWin = 0;
         }
         while(winCounter !== 4) {
             if(this.boardObj[row + winCounter] === undefined) {
@@ -100,6 +107,8 @@ class Model {
                 break;
             }
         }
+        bigWin = winCounter;
+        winCounter = 1;
         while(winCounter !== 4) {
             if(this.boardObj[row + winCounter] === undefined) {
                 break;
@@ -111,7 +120,8 @@ class Model {
                 break;
             }
         }
-        if(winCounter === 4) {
+        bigWin += winCounter;
+        if(bigWin >= 5) {
             return true;
         }
         else {
@@ -135,6 +145,10 @@ class View {
     }
     playMove(id) {
         document.getElementById(id).style.backgroundColor = this.playingColor;
+        let moveArr = id.split("-");
+        let row = Number(moveArr[0]);
+        let square = Number(moveArr[1]);
+        document.getElementById(`${row-1}-${square}`).style.backgroundColor = "white";
     }
     switchPlayer(){
        if(this.playingColor === "yellow") {
@@ -149,7 +163,8 @@ class View {
         document.getElementById("win").innerHTML = `<img src="https://cliply.co/wp-content/uploads/2021/09/CLIPLY_372109170_FREE_FIREWORKS_400.gif"><br>${winner} has won the game`;
         let squareArr = document.querySelectorAll("td");
         for(let i = 0; i<squareArr.length; i++) {
-            this.playMove(squareArr[i].id)
+           // this.playMove(squareArr[i].id)
+           squareArr[i].style.backgroundColor = this.playingColor;
         }
     }
 }
@@ -163,6 +178,7 @@ class Controller {
             if(event.target.tagName !== 'TD') return;
             if(this.model.playMove(event.target.id) === false) return;
             this.view.playMove(event.target.id);
+            console.log(this.model.boardObj);
             if(this.model.checkWin(event.target.id) === true || this.model.checkAlahson(event.target.id) === true) {
                 this.view.shoWin(this.model.currentPlayer);
                 return;

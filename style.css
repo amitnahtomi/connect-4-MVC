@@ -3,7 +3,7 @@ th, td {
     height: 50px;
     width: 100px;
     border-radius: 50px;
-    background-color: white;
+    background-color: lightgray;
     }
 
 table {
@@ -24,7 +24,7 @@ h1 {
 }
 
 td:hover {
-    background-color: deeppink;
+    /*background-color: deeppink;*/
     cursor: pointer;
 }
 
