@@ -24,6 +24,7 @@ h1 {
 
 td:hover {
     background-color: deeppink;
+    cursor: pointer;
 }
 
 input {
@@ -32,4 +33,24 @@ input {
     margin-top: 20px;
     height: 30px;
     width: 80px;
+    text-align: center;
+    font-size: 20px;
+}
+
+section {
+    text-align: center;
+}
+
+#win {
+    font-size: 80px;
+    color: deeppink;
+    font-family: Arial, Helvetica, sans-serif;
+}
+button {
+    height: 40px;
+    width: 180px;
+    font-size: 20px;
+}
+button:hover {
+    cursor: pointer;
 }

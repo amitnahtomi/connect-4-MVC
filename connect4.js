@@ -145,7 +145,8 @@ class View {
        }
     }
     shoWin(player) {
-        document.getElementById("win").innerText = `player ${player} won`;
+        let winner = document.getElementById(`player${player}`).value;
+        document.getElementById("win").innerText = `${winner} has won the game`;
     }
 }
 class Controller {
@@ -173,7 +174,7 @@ class Controller {
         document.getElementById("restart").addEventListener("click", () => {
             let tdArr = document.querySelectorAll('td');
             for(let i = 0; i < tdArr.length; i++) {
-                tdArr[i].style.backgroundColor = "white";
+                tdArr[i].style.backgroundColor = null;
             }
             for(let row in this.model.boardObj) {
                 for(let j = 0; j < this.model.boardObj[row].length; j++) {
