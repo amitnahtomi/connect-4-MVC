@@ -163,7 +163,6 @@ class View {
         document.getElementById("win").innerHTML = `<img src="https://cliply.co/wp-content/uploads/2021/09/CLIPLY_372109170_FREE_FIREWORKS_400.gif"><br>${winner} has won the game`;
         let squareArr = document.querySelectorAll("td");
         for(let i = 0; i<squareArr.length; i++) {
-           // this.playMove(squareArr[i].id)
            squareArr[i].style.backgroundColor = this.playingColor;
         }
     }
@@ -178,7 +177,6 @@ class Controller {
             if(event.target.tagName !== 'TD') return;
             if(this.model.playMove(event.target.id) === false) return;
             this.view.playMove(event.target.id);
-            console.log(this.model.boardObj);
             if(this.model.checkWin(event.target.id) === true || this.model.checkAlahson(event.target.id) === true) {
                 this.view.shoWin(this.model.currentPlayer);
                 return;
@@ -194,7 +192,12 @@ class Controller {
         document.getElementById("restart").addEventListener("click", () => {
             let tdArr = document.querySelectorAll('td');
             for(let i = 0; i < tdArr.length; i++) {
-                tdArr[i].style.backgroundColor = null;
+                if(tdArr[i].id.split("-")[0] === "6"){
+                    tdArr[i].style.backgroundColor = "white";
+                }
+                else {
+                    tdArr[i].style.backgroundColor = "lightgray";
+                }
             }
             for(let row in this.model.boardObj) {
                 for(let j = 0; j < this.model.boardObj[row].length; j++) {
