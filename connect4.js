@@ -50,6 +50,73 @@ class Model {
         if(winCounter === 4) {
             return true;
         }
+        else {
+            winCounter = 1;
+        }
+        return false;
+    }
+
+    checkAlahson(id) {
+        let moveArr = id.split("-");
+        let row = Number(moveArr[0]);
+        let square = Number(moveArr[1]);
+        let winCounter = 1;
+        while(winCounter !== 4) {
+            if(this.boardObj[row + winCounter] === undefined) {
+                break;
+            }
+            if(this.boardObj[row + winCounter][square + winCounter] === this.currentPlayer) {
+                winCounter++;
+            }
+            else {
+                break;
+            }
+        }
+        while(winCounter !== 4) {
+            if(this.boardObj[row - winCounter] === undefined) {
+                break;
+            }
+            if(this.boardObj[row - winCounter][square - winCounter] === this.currentPlayer) {
+                winCounter++;
+            }
+            else {
+                break;
+            }
+        }
+        if(winCounter === 4) {
+            return true;
+        }
+        else {
+            winCounter = 1;
+        }
+        while(winCounter !== 4) {
+            if(this.boardObj[row + winCounter] === undefined) {
+                break;
+            }
+            if(this.boardObj[row + winCounter][square - winCounter] === this.currentPlayer) {
+                winCounter++;
+            }
+            else {
+                break;
+            }
+        }
+        while(winCounter !== 4) {
+            if(this.boardObj[row + winCounter] === undefined) {
+                break;
+            }
+            if(this.boardObj[row - winCounter][square + winCounter] === this.currentPlayer) {
+                winCounter++;
+            }
+            else {
+                break;
+            }
+        }
+        if(winCounter === 4) {
+            return true;
+        }
+        else {
+            winCounter = 1;
+        }
         return false;
     }
     switchPlayer() {
@@ -92,7 +159,7 @@ class Controller {
             if(this.model.playMove(event.target.id) === false) return;
             this.view.playMove(event.target.id);
             console.log(this.model.boardObj);
-            if(this.model.checkWin(event.target.id) === true) {
+            if(this.model.checkWin(event.target.id) === true || this.model.checkAlahson(event.target.id) === true) {
                 this.view.shoWin(this.model.currentPlayer);
                 return;
             }
@@ -119,6 +186,3 @@ class Controller {
 }
 let app = new Controller(new Model, new View);
 app.playTheGame();
-//let model = new Model;
-//model.playMove("6-0")
-//console.log(model.boardObj);
