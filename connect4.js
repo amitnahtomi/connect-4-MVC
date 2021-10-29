@@ -146,7 +146,11 @@ class View {
     }
     shoWin(player) {
         let winner = document.getElementById(`player${player}`).value;
-        document.getElementById("win").innerText = `${winner} has won the game`;
+        document.getElementById("win").innerHTML = `<img src="https://cliply.co/wp-content/uploads/2021/09/CLIPLY_372109170_FREE_FIREWORKS_400.gif"><br>${winner} has won the game`;
+        let squareArr = document.querySelectorAll("td");
+        for(let i = 0; i<squareArr.length; i++) {
+            this.playMove(squareArr[i].id)
+        }
     }
 }
 class Controller {
@@ -159,7 +163,6 @@ class Controller {
             if(event.target.tagName !== 'TD') return;
             if(this.model.playMove(event.target.id) === false) return;
             this.view.playMove(event.target.id);
-            console.log(this.model.boardObj);
             if(this.model.checkWin(event.target.id) === true || this.model.checkAlahson(event.target.id) === true) {
                 this.view.shoWin(this.model.currentPlayer);
                 return;
@@ -168,6 +171,7 @@ class Controller {
             this.view.switchPlayer();
         })
         document.getElementById("start").addEventListener("click", () => {
+            if(document.getElementById("player1").value === "" || document.getElementById("player2").value === "") return;
             document.getElementById("board").hidden = false;
             document.getElementById("restart").hidden = false;
         })
@@ -181,7 +185,7 @@ class Controller {
                     this.model.boardObj[row][j] = 0;
                 }
             }
-            document.getElementById("win").innerText = "";
+            document.getElementById("win").innerHTML = "";
         })
     }
 }

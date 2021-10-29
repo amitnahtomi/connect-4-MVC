@@ -12,13 +12,14 @@ table {
     width: 500px;
     background-color: coral;
     margin-top: 50px;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
     margin-left: 370px;
 }
 
 h1 {
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
+    font-size: 50px;
     color: darkslategrey;
 }
 
@@ -35,6 +36,7 @@ input {
     width: 80px;
     text-align: center;
     font-size: 20px;
+    color: darkslategrey;
 }
 
 section {
@@ -50,7 +52,9 @@ button {
     height: 40px;
     width: 180px;
     font-size: 20px;
+    color: darkslategrey;
 }
 button:hover {
     cursor: pointer;
+    background-color: skyblue;
 }
