@@ -15,7 +15,11 @@
     <script src="./connect4.js" defer></script>
 </head>
 <body>
-    <table id="board">
+    <h1>connect 4</h1>
+    <button id="start">start game</button>
+    <input id="player1" placeholder="player 1">
+    <input id="player2" placeholder="player 2">
+    <table id="board" hidden>
         <tr>
             <td id="0-0"></td>
             <td id="0-1"></td>
@@ -82,5 +86,6 @@
         
     </table>
     <div id="win"></div>
+    <button id="restart" hidden>clear board</button>
 </body>
 </html>

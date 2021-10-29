@@ -24,9 +24,14 @@ class Model {
         }
     }
     checkWin(id) {
-        let moveArr = tdId.split("-");
+        let moveArr = id.split("-");
         let row = Number(moveArr[0]);
-        let square = Number(moveArr[1]); 
+        let square = Number(moveArr[1]);
+        let winCounter = 0; 
+        if(row < 4 && this.boardObj[row][square] === this.boardObj[row + 1][square] && this.boardObj[row][square] === this.boardObj[row + 2][square] && this.boardObj[row][square] === this.boardObj[row + 3][square]){
+            return true;
+        }
+        return false;
     }
     switchPlayer() {
         if(this.currentPlayer === 1){
@@ -67,8 +72,29 @@ class Controller {
             if(event.target.tagName !== 'TD') return;
             if(this.model.playMove(event.target.id) === false) return;
             this.view.playMove(event.target.id);
+            console.log(this.model.boardObj);
+            if(this.model.checkWin(event.target.id) === true) {
+                this.view.shoWin(this.model.currentPlayer);
+                return;
+            }
             this.model.switchPlayer();
             this.view.switchPlayer();
+        })
+        document.getElementById("start").addEventListener("click", () => {
+            document.getElementById("board").hidden = false;
+            document.getElementById("restart").hidden = false;
+        })
+        document.getElementById("restart").addEventListener("click", () => {
+            let tdArr = document.querySelectorAll('td');
+            for(let i = 0; i < tdArr.length; i++) {
+                tdArr[i].style.backgroundColor = "white";
+            }
+            for(let row in this.model.boardObj) {
+                for(let j = 0; j < this.model.boardObj[row].length; j++) {
+                    this.model.boardObj[row][j] = 0;
+                }
+            }
+            document.getElementById("win").innerText = "";
         })
     }
 }
