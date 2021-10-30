@@ -57,3 +57,11 @@ button:hover {
     cursor: pointer;
     background-color: skyblue;
 }
+
+#player1 {
+    border: 5px solid yellow;
+}
+
+#player2 {
+    border: 5px solid blue;
+}
