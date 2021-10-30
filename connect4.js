@@ -137,7 +137,13 @@ class Model {
             this.currentPlayer = 1;
         }
     }
-
+    clearBoard() {
+        for(let row in this.boardObj) {
+            for(let j = 0; j < this.boardObj[row].length; j++) {
+                this.boardObj[row][j] = 0;
+            }
+        }
+    }
 }
 class View {
     constructor() {
@@ -167,6 +173,24 @@ class View {
            squareArr[i].style.backgroundColor = this.playingColor;
         }
     }
+    startGame() {
+        if(document.getElementById("player1").value === "" || document.getElementById("player2").value === "") return;
+        document.getElementById("board").hidden = false;
+        document.getElementById("restart").hidden = false;
+    }
+    clearBoard() {
+        let tdArr = document.querySelectorAll('td');
+            for(let i = 0; i < tdArr.length; i++) {
+                if(tdArr[i].id.split("-")[0] === "6"){
+                    tdArr[i].style.backgroundColor = "white";
+                }
+                else {
+                    tdArr[i].style.backgroundColor = "lightgray";
+                }
+            }
+            document.getElementById("win").innerHTML = "";
+    }
+       
 }
 class Controller {
     constructor(model, view) {
@@ -185,27 +209,10 @@ class Controller {
             this.model.switchPlayer();
             this.view.switchPlayer();
         })
-        document.getElementById("start").addEventListener("click", () => {
-            if(document.getElementById("player1").value === "" || document.getElementById("player2").value === "") return;
-            document.getElementById("board").hidden = false;
-            document.getElementById("restart").hidden = false;
-        })
-        document.getElementById("restart").addEventListener("click", () => {
-            let tdArr = document.querySelectorAll('td');
-            for(let i = 0; i < tdArr.length; i++) {
-                if(tdArr[i].id.split("-")[0] === "6"){
-                    tdArr[i].style.backgroundColor = "white";
-                }
-                else {
-                    tdArr[i].style.backgroundColor = "lightgray";
-                }
-            }
-            for(let row in this.model.boardObj) {
-                for(let j = 0; j < this.model.boardObj[row].length; j++) {
-                    this.model.boardObj[row][j] = 0;
-                }
-            }
-            document.getElementById("win").innerHTML = "";
+        document.getElementById("start").addEventListener("click", this.view.startGame);
+        document.getElementById("restart").addEventListener("click", ()=>{ 
+            this.view.clearBoard();
+            this.model.clearBoard();
         })
     }
 }
