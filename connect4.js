@@ -65,7 +65,7 @@ class Model {
         let square = Number(moveArr[1]);
         let winCounter = 1;
         while(winCounter !== 4) {
-            if(this.boardObj[row + winCounter] === undefined) {
+            if(this.boardObj[row + winCounter] === undefined || this.boardObj[row - winCounter] === undefined) {
                 break;
             }
             if(this.boardObj[row + winCounter][square + winCounter] === this.currentPlayer) {
@@ -78,7 +78,7 @@ class Model {
         let bigWin = winCounter;
         winCounter = 1;
         while(winCounter !== 4) {
-            if(this.boardObj[row - winCounter] === undefined) {
+            if(this.boardObj[row - winCounter] === undefined || this.boardObj[row - winCounter] === undefined) {
                 break;
             }
             if(this.boardObj[row - winCounter][square - winCounter] === this.currentPlayer) {
@@ -97,7 +97,7 @@ class Model {
             bigWin = 0;
         }
         while(winCounter !== 4) {
-            if(this.boardObj[row + winCounter] === undefined) {
+            if(this.boardObj[row + winCounter] === undefined || this.boardObj[row - winCounter] === undefined) {
                 break;
             }
             if(this.boardObj[row + winCounter][square - winCounter] === this.currentPlayer) {
@@ -110,7 +110,7 @@ class Model {
         bigWin = winCounter;
         winCounter = 1;
         while(winCounter !== 4) {
-            if(this.boardObj[row + winCounter] === undefined) {
+            if(this.boardObj[row + winCounter] === undefined || this.boardObj[row - winCounter] === undefined) {
                 break;
             }
             if(this.boardObj[row - winCounter][square + winCounter] === this.currentPlayer) {
@@ -148,6 +148,7 @@ class View {
         let moveArr = id.split("-");
         let row = Number(moveArr[0]);
         let square = Number(moveArr[1]);
+        if(row === 0) return;
         document.getElementById(`${row-1}-${square}`).style.backgroundColor = "white";
     }
     switchPlayer(){
