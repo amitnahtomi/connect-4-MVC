@@ -144,6 +144,16 @@ class Model {
             }
         }
     }
+    checkDraw() {
+        for(let row in this.boardObj) {
+            for(let j = 0; j < this.boardObj[row].length; j++) {
+               if(this.boardObj[row][j] === 0) {
+                   return false;
+               }
+            }
+        }
+        return true;
+    }
 }
 class View {
     constructor() {
@@ -172,6 +182,9 @@ class View {
         for(let i = 0; i<squareArr.length; i++) {
            squareArr[i].style.backgroundColor = this.playingColor;
         }
+    }
+    showDraw() {
+        document.getElementById("win").innerHTML = "its a draw!!!";
     }
     startGame() {
         if(document.getElementById("player1").value === "" || document.getElementById("player2").value === "") return;
@@ -204,6 +217,10 @@ class Controller {
             this.view.playMove(event.target.id);
             if(this.model.checkWin(event.target.id) === true || this.model.checkAlahson(event.target.id) === true) {
                 this.view.shoWin(this.model.currentPlayer);
+                return;
+            }
+            if(this.model.checkDraw()){
+                this.view.showDraw();
                 return;
             }
             this.model.switchPlayer();
